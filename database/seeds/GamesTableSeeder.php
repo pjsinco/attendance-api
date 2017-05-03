@@ -31,7 +31,7 @@ class GamesTableSeeder extends Seeder
         'away'           => $game[2],
         'home'           => $game[3],
         'venue'          => $game[4],
-        'date_time'      => $game[5],
+        'date_time'      => Carbon\Carbon::createFromTimestamp($game[5])->toDateTimeString(),
         'game_type'      => $game[6],
         'status'         => $game[7],
         'home_is_winner' => $game[8],

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
+
   protected $fillable = [
     'game_id',
     'attendance',
@@ -16,5 +17,9 @@ class Game extends Model
     'game_type',
     'status',
     'home_is_winner',
+  ];
+
+  protected $dates = [
+    'date_time',
   ];
 }
