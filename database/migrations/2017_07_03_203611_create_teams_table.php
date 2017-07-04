@@ -14,7 +14,6 @@ class CreateTeamsTable extends Migration
     public function up()
     {
       Schema::create('teams', function (Blueprint $table) {
-        $table->increments('id');
         $table->char('abbrev', 3);
         $table->string('team');
         $table->string('nickname');
@@ -22,6 +21,8 @@ class CreateTeamsTable extends Migration
         $table->char('state', 2);
         $table->enum('league', ['AL', 'NL']);
         $table->enum('division', ['East', 'Central', 'West']);
+
+        $table->primary('abbrev');
       });
     }
 
