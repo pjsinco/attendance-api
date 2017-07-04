@@ -21,9 +21,9 @@ class GamesController extends Controller
     ], 200);
   }
 
-  public function show($id)
+  public function show(Game $game)
   {
-dd($id);
+    
   }
   
 }
