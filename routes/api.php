@@ -15,8 +15,9 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => '/v1'], function () {
 
-  //Route::get('/attendance', 'GamesController@index');
+  Route::group(['prefix' => 'mlb'], function() {
 
-  Route::get('/attendance/{team}', 'GamesController@show');
+    Route::get('/attendance', 'GamesController@index');
 
+  });
 });

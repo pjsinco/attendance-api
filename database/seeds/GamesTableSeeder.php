@@ -25,13 +25,17 @@ class GamesTableSeeder extends Seeder
   private function seedTable($games)
   {
     foreach($games as $game) {
+
+      $date_time = Carbon\Carbon::createFromTimestamp($game[5], 'EST')
+                    ->toDateTimeString();
+
       DB::table('games')->insert([
         'game_id'        => $game[0],
         'attendance'     => $game[1],
         'away'           => $game[2],
         'home'           => $game[3],
         'venue'          => $game[4],
-        'date_time'      => Carbon\Carbon::createFromTimestamp($game[5])->toDateTimeString(),
+        'date_time'      => $date_time,
         'game_type'      => $game[6],
         'status'         => $game[7],
         'home_is_winner' => $game[8],
