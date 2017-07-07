@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use League\Csv\Reader;
+use App\GameDBInsert;
 
 class GamesTableSeeder extends Seeder
 {
@@ -9,7 +10,7 @@ class GamesTableSeeder extends Seeder
    * Run the database seeds.
    *
    * @return void
-   */
+  */
   public function run()
   {
     DB::table('games')->truncate();
@@ -18,28 +19,17 @@ class GamesTableSeeder extends Seeder
 
     $games = $reader->fetch();
 
-    $this->seedTable($games);
+    $this->seedTable($games, new GameDBInsert);
     
   }
 
-  private function seedTable($games)
+  private function seedTable($games, GameDBInsert $gameSaver)
   {
+
     foreach($games as $game) {
 
-      $date_time = Carbon\Carbon::createFromTimestamp($game[5], 'EST')
-                    ->toDateTimeString();
+      $gameSaver->save($game);
 
-      DB::table('games')->insert([
-        'game_id'        => $game[0],
-        'attendance'     => $game[1],
-        'away'           => $game[2],
-        'home'           => $game[3],
-        'venue'          => $game[4],
-        'date_time'      => $date_time,
-        'game_type'      => $game[6],
-        'status'         => $game[7],
-        'home_is_winner' => $game[8],
-      ]);
     }
   }
 }

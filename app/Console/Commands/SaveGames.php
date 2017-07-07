@@ -7,6 +7,7 @@ use App\Game;
 use League\Csv\Reader;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
+use App\GameDBInsert;
 
 class SaveGames extends Command
 {
@@ -42,7 +43,7 @@ class SaveGames extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(GameDBInsert $gameSaver)
     {
 
       $filePath = storage_path('app/public/' . $this->option('file'));
@@ -65,28 +66,17 @@ class SaveGames extends Command
 
         if (empty($game)) { continue; }
 
-        $date_time = Carbon::createFromTimestamp($game[5], 'EST')
-          ->toDateTimeString();
-      
         $inserted = false;
 
         try {
 
-          $inserted = \DB::table('games')->insert([
-            'game_id'        => $game[0],
-            'attendance'     => $game[1],
-            'away'           => $game[2],
-            'home'           => $game[3],
-            'venue'          => $game[4],
-            'date_time'      => $date_time,
-            'game_type'      => $game[6],
-            'status'         => $game[7],
-            'home_is_winner' => $game[8],
-          ]);
+          $inserted = $gameSaver->save($game);
 
           if ($inserted) {
             $this->info('Saved '. $game[0]);
-          } 
+          } else {
+            $this->comment('Problem inserting ' . $game[0]);
+          }
 
         } catch (QueryException $qe) {
           if ($qe->getCode() == 23000) {
