@@ -15,6 +15,8 @@ class GameFilters extends QueryFilter
 
   public function team($teamId) // api/v1/mlb/attendance?team=kca
   {
+    
+    
     if ($this->request->input('visiting') === 'true') {
       return $this->builder->where('away', $teamId);
     } 
@@ -22,20 +24,29 @@ class GameFilters extends QueryFilter
     return $this->builder->where('home', $teamId);
   }
 
-  public function year($year) // api/v1/mlb/attendance?team=kca
+  public function year($year = null) // api/v1/mlb/attendance?team=kca
   {
-    $year = ($year ?: Carbon::yesterday()->year);
+    $year = ($year !== null ? $year : (string) Carbon::yesterday()->year);
 
     return $this->builder->whereYear('date_time', $year);
   }
 
-  public function month($month) // api/v1/mlb/attendance?month=6
+  public function month($month = 0) // api/v1/mlb/attendance?month=6
   {
+
+    if ( ! isset($month) || (int) $month < 1 || (int) $month > 12) {
+      throw new \InvalidArgumentException('Invalid value for month');
+    }
+
     return $this->builder->whereMonth('date_time', $this->zeroPad($month));
   }
 
-  public function day($day) // api/v1/mlb/attendance?team=kca
+  public function day($day = 0) // api/v1/mlb/attendance?team=kca
   {
+    if ((int) $day < 1 || (int) $day > 31) {
+      throw new \InvalidArgumentException('Invalid value for day');
+    }
+
     return $this->builder->whereDay('date_time', $this->zeroPad($day));
   }
 
