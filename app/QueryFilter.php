@@ -26,12 +26,16 @@ abstract class QueryFilter
     $this->builder = $builder;
     
     foreach ($this->filters() as $name => $value) {
-      if (method_exists($this, $name)) {
-        if (trim($value)) {
-          $this->$name($value);
-        } else {
-          $this->$name();
+      try {
+        if (method_exists($this, $name)) {
+          if (trim($value) == '0' || trim($value)) {
+            $this->$name($value);
+          } else {
+            $this->$name();
+          }
         }
+      } catch (\Exception $e) {
+        throw $e;
       }
     }
 

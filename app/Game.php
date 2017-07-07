@@ -30,6 +30,12 @@ class Game extends Model
 
   public function scopeFilter($builder, QueryFilter $filters)
   {
-    return $filters->apply($builder);
+    try {
+      $builder = $filters->apply($builder);
+      return $builder;
+    } catch (\Exception $e) {
+      throw $e;
+    }
+
   }
 }
