@@ -25,7 +25,6 @@ class GamesController extends Controller
    */
   public function index(GameFilters $filters)
   {
-
     try {
 
       $games = Game::filter($filters)->get();
