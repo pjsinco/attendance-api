@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Team;
 use Pjs\Transformers\TeamTransformer;
 
-class TeamsController extends Controller
+class TeamsController extends ApiController
 {
 
   protected $teamTransformer;
@@ -26,27 +26,20 @@ class TeamsController extends Controller
 
         $team = Team::findOrFail($abbrev);
 
-        return response()->json([
-          'data' => $this->teamTransformer->transform($team),
-          'errors' => [],
-        ], 200);
+        $this->setStatusCode(200);
+
+        return $this->respond($this->teamTransformer->transform($team->toArray()));
 
       } catch (ModelNotFoundException $mnfe) {
 
-        return response()->json([
-          'data' => [],
-          'errors' => [
-            'message' => 'Could not find team',
-          ],
-        ], 404);
+        $this->setStatusCode(404);
+
+        return $this->respondNotFound('Could not find team');
       }
     }
 
-    return response()->json([
-      'data' => $this->teamTransformer->transformCollection(Team::all()->toArray()),
-      'errors' => [],
-    ], 200);
+    $data = $this->teamTransformer->transformCollection(Team::all()->toArray());
 
+    return $this->respond($data);
   }
-
 }
