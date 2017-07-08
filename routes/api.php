@@ -19,5 +19,7 @@ Route::group(['prefix' => '/v1'], function () {
 
     Route::get('/attendance', 'GamesController@index');
 
+    Route::get('/teams/{abbrev?}', 'TeamsController@index');
+
   });
 });
