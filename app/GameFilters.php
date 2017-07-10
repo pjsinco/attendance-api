@@ -5,6 +5,7 @@ namespace App;
 use App\Game;
 use App\QueryFilter;
 use Carbon\Carbon;
+use Pjs\Helpers;
 
 /**
  * 
@@ -38,7 +39,7 @@ class GameFilters extends QueryFilter
       throw new \InvalidArgumentException('Invalid value for month');
     }
 
-    return $this->builder->whereMonth('date_time', $this->zeroPad($month));
+    return $this->builder->whereMonth('date_time', Helpers::zeroPad($month));
   }
 
   public function day($day = 0) // api/v1/mlb/attendance?team=kca
@@ -47,12 +48,12 @@ class GameFilters extends QueryFilter
       throw new \InvalidArgumentException('Invalid value for day');
     }
 
-    return $this->builder->whereDay('date_time', $this->zeroPad($day));
+    return $this->builder->whereDay('date_time', Helpers::zeroPad($day));
   }
 
-  private function zeroPad($num)
-  {
-    return sprintf('%02s', $num);
-  }
+  //private function zeroPad($num)
+  //{
+    //return sprintf('%02s', $num);
+  //}
 
 }
