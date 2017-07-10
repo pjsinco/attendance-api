@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\Daily;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,4 +12,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/send/daily', function() {
+
+  \Mail::to('psinco@gmail.com')
+         ->send(new Daily);
+
+});
 
