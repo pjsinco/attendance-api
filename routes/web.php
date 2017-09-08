@@ -18,5 +18,8 @@ Route::get('/send/daily', function() {
   \Mail::to('psinco@gmail.com')
          ->send(new Daily);
 
+  // TODO temporary response
+  return 'Sent mail';
+
 });
 
