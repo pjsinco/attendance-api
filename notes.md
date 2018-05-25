@@ -38,3 +38,10 @@ DB::table('games')->select(DB::raw("sum(attendance), strftime('%Y', date_time, '
 
 DB::table('games')->select('home', 'attendance')->get()->sum('attendance');
 ```
+
+##### Fri May 25 07:12:44 2018 CDT
+Made this change:
+> What solved the issue was doing this (from Laravel #19088):
+In a text editor, open the file /Users/user/.composer/vendor/laravel/homestead/src/MakeCommand.php
+Find and replace “default” with nothing (changing all of the “defaultName”s to “Name” throughout the file).
+[Fatal error: Cannot redeclare static Symfony\Component\Console\Command\Command::$defaultName as non static ...](https://github.com/laravel/homestead/issues/841)
