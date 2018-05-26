@@ -54,7 +54,7 @@ class SaveGames extends Command
 
       }
 
-      $reader = Reader::createFromPath($filePath);
+      $reader = Reader::createFromPath($filePath, 'r');
 
       if ($this->option('headers')) {
         $reader->setOffset(1); 

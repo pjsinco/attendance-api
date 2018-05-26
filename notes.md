@@ -1,22 +1,12 @@
 ```sql
 select
-  sum(attendance), 
-  strftime('%m', date_time, 'unixepoch', 'localtime') as month
+  attendance,
+  date(date_time) as date
 from games
 where 
-  month = '04'
-  and strftime('%y', date_time, 'unixepoch', 'localtime') = '2017'
-  and home = 'kca'
-group by month
-
-select
-  home,
-  sum(attendance), 
-  strftime('%Y', date_time, 'unixepoch', 'localtime') as year
-from games
-where 
-  year = '2017'
-group by home
+  strftime('%Y', date_time) = '2018'
+  and home = 'nya'
+order by date
 ```
 
 
@@ -45,3 +35,8 @@ Made this change:
 In a text editor, open the file /Users/user/.composer/vendor/laravel/homestead/src/MakeCommand.php
 Find and replace “default” with nothing (changing all of the “defaultName”s to “Name” throughout the file).
 [Fatal error: Cannot redeclare static Symfony\Component\Console\Command\Command::$defaultName as non static ...](https://github.com/laravel/homestead/issues/841)
+
+##### Sat May 26 09:54:14 2018 CDT
+Baseballreference.com:
+> All single-admission doubleheaders are counted only once in the attendance total and a zero is used for the other game of the doubleheader. The attendance is based on reported seasonal totals.
+
