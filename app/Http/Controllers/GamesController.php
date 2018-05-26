@@ -41,8 +41,31 @@ class GamesController extends Controller
     }
   }
 
-  public function show(Game $game)
+  public function sum(GameFilters $filters)
   {
-    
+    try {
+      $games = Game::filter($filters)->get();
+      $filters = $filters->filters();
+      $isAway = array_key_exists('away', $filters) && 
+                filter_var($filters['away'], FILTER_VALIDATE_BOOLEAN);
+      $team = $isAway ? $games->pluck('away') : $games->pluck('home');
+
+      return response()->json([
+        'data' => [
+          'team' => $team->first(),
+          'attendance' => $games->sum->attendance,
+          'games' => $games->count(),
+          'home_games' => ! $isAway,
+        ],
+        'errors' => [],
+      ], 200);
+    } catch (\Exception $e) {
+      return response()->json([
+        'data' => [],
+        'errors' => [
+          'message' => $e->getMessage(),
+        ],
+      ], 404);
+    }
   }
 }

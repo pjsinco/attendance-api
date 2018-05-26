@@ -18,6 +18,4 @@ class GameTransformer extends Transformer
       'home_won'   => (boolean) $game['home_is_winner'],
     ];
   }
-
-
 }
