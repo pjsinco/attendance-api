@@ -5,14 +5,12 @@ use App\Game;
 use App\Team;
 use App\GameFilters;
 use Pjs\Transformers\GameTransformer;
-
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use \Carbon\Carbon;
 
 class GamesController extends Controller
 {
-
   protected $gameTransformer;
 
   public function __construct(GameTransformer $transformer)
@@ -26,7 +24,6 @@ class GamesController extends Controller
   public function index(GameFilters $filters)
   {
     try {
-
       $games = Game::filter($filters)->get();
 
       return response()->json([
@@ -35,7 +32,6 @@ class GamesController extends Controller
       ], 200);
 
     } catch(\Exception $e) {
-
       return response()->json([
         'data' => [],
         'errors' => [
@@ -49,5 +45,4 @@ class GamesController extends Controller
   {
     
   }
-  
 }

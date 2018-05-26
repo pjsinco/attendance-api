@@ -17,12 +17,14 @@ Route::group(['prefix' => '/v1'], function () {
 
   Route::group(['prefix' => 'mlb'], function() {
 
-    Route::get('/attendance', 'GamesController@index');
+    Route::get('/games', 'GamesController@index');
 
     //Route::get('/venues/{abbrev?}', 'StadiumsController@index');
     //Route::get('/venues/{id}', 'StadiumsController@show');
 
-    Route::get('/teams/{abbrev?}', 'TeamsController@index');
+    Route::get('/teams', 'TeamsController@index');
+
+    Route::get('/teams/{abbrev}', 'TeamsController@show');
 
   });
 

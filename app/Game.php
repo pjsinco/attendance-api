@@ -3,12 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\QueryFilter;
+use App\QueryFilters;
 use Pjs\Helpers;
 
 class Game extends Model
 {
-
   public $primaryKey = 'game_id';
   public $incrementing = false;
   public $hidden = ['game_type'];
@@ -37,7 +36,6 @@ class Game extends Model
                 ->whereYear('date_time', (string) $year)
                 ->pluck('attendance')->avg();
   }
-  
 
   /**
    * Create an array of attendance figures for a team in a season.
@@ -72,7 +70,7 @@ class Game extends Model
     return $this->gamesForDay($yesterday);
   }
 
-  public function scopeFilter($builder, QueryFilter $filters)
+  public function scopeFilter($builder, QueryFilters $filters)
   {
     try {
       $builder = $filters->apply($builder);
@@ -80,6 +78,5 @@ class Game extends Model
     } catch (\Exception $e) {
       throw $e;
     }
-
   }
 }

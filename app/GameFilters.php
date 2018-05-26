@@ -3,22 +3,18 @@
 namespace App;
 
 use App\Game;
-use App\QueryFilter;
+use App\QueryFilters;
 use Carbon\Carbon;
 use Pjs\Helpers;
 
 /**
  * 
  */
-class GameFilters extends QueryFilter
+class GameFilters extends QueryFilters
 {
-
-
   public function team($teamId) // api/v1/mlb/attendance?team=kca
   {
-    
-    
-    if ($this->request->input('visiting') === 'true') {
+    if ($this->request->input('away') === 'true') {
       return $this->builder->where('away', $teamId);
     } 
 
@@ -34,7 +30,6 @@ class GameFilters extends QueryFilter
 
   public function month($month = 0) // api/v1/mlb/attendance?month=6
   {
-
     if ( ! isset($month) || (int) $month < 1 || (int) $month > 12) {
       throw new \InvalidArgumentException('Invalid value for month');
     }
@@ -50,10 +45,4 @@ class GameFilters extends QueryFilter
 
     return $this->builder->whereDay('date_time', Helpers::zeroPad($day));
   }
-
-  //private function zeroPad($num)
-  //{
-    //return sprintf('%02s', $num);
-  //}
-
 }

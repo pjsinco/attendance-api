@@ -5,9 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-abstract class QueryFilter
+abstract class QueryFilters
 {
-
   protected $request;
   protected $builder;
   
@@ -41,5 +40,4 @@ abstract class QueryFilter
 
     return $this->builder;
   }
-
 }

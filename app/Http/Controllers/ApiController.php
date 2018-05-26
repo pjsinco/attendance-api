@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 class ApiController extends Controller
 {
-
   /**
    * @var int
    *
@@ -27,7 +26,6 @@ class ApiController extends Controller
       'data' => $data,
       'errors' => $errors,
     ], $this->getStatusCode());
-
   }
 
   private function respondWithError($message)
@@ -43,5 +41,4 @@ class ApiController extends Controller
     $this->setStatusCode(404);
     return $this->respondWithError($message);
   }
-
 }
