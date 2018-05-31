@@ -53,7 +53,7 @@ class Daily extends Mailable
       $game->stdDev = round($stdDev, 3);
     }
 
-    return $this->text('emails.daily')
+    return $this->view('emails.daily')
                 ->with([
                   'games' => $games,
                   'date' => $yesterday->toFormattedDateString(), 
