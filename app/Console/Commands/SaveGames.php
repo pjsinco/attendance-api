@@ -49,9 +49,7 @@ class SaveGames extends Command
       $filePath = storage_path('app/public/' . $this->option('file'));
 
       if (! file_exists($filePath)) {
-
         $this->error('Could not find the file ' . $this->option('file'));
-
       }
 
       $reader = Reader::createFromPath($filePath, 'r');
@@ -63,13 +61,11 @@ class SaveGames extends Command
       $games = $reader->fetch();
 
       foreach($games as $game) {
-
         if (empty($game)) { continue; }
 
         $inserted = false;
 
         try {
-
           $inserted = $gameSaver->save($game);
 
           if ($inserted) {
@@ -94,5 +90,4 @@ class SaveGames extends Command
         // delete file
       }
     }
-  
 }
