@@ -8,7 +8,6 @@ namespace Pjs;
  */
 class DescriptiveStats
 {
-
   public static function sum()
   {
     return array_sum(func_get_args());
