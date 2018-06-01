@@ -31,14 +31,12 @@ class Daily extends Mailable
    */
   public function build()
   {
-
     $yesterday = \Carbon\Carbon::yesterday();
 
     $games = Game::gamesForDay($yesterday)->get();
 
     // Attach some statistics to the game object
     foreach ($games as $game) {
-
       $allGames = $game->allTeamAttendance($game->home, $yesterday->year);
 
       $seasonAvg = 
@@ -48,9 +46,15 @@ class Daily extends Mailable
 
       $stdDev = DescriptiveStats::standardDev($allGames);
 
+      $delta = round($game->attendance - $seasonAvg);
+
       $game->seasonAvg = $seasonAvg;
       $game->z = round($z, 3);
       $game->stdDev = round($stdDev, 3);
+      $game->delta = ($delta >= 0 ? '+' : '') . number_format($delta);
+      $game->colorDelta = $delta >= 0 ? '#4A90E2' : '#D0021B';
+      $game->attendance = number_format($game->attendance);
+      $game->dateTime = $game->date_time->format('l, F j, Y, g:i a');
     }
 
     return $this->view('emails.daily')

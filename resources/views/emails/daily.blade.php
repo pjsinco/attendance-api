@@ -81,6 +81,12 @@
         </style>
         <![endif]-->
 
+  <!--[if !mso]><!-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+  </style>
+  <!--<![endif]-->
 
   <style type="text/css">
     @media only screen and (min-width:480px) {
@@ -124,7 +130,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                   <tr>
                     <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:helvetica;font-size:36px;line-height:1;text-align:center;color:#4a4a4a;">
+                      <div style="font-family:Open Sans, helvetica;font-size:36px;line-height:1;text-align:center;color:#4a4a4a;">
                         MLB Attendance Report
                       </div>
                     </td>
@@ -132,7 +138,7 @@
 
                   <tr>
                     <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:helvetica;font-size:18px;line-height:1;text-align:center;color:#9b9b9b;">
+                      <div style="font-family:Open Sans, helvetica;font-size:18px;line-height:1;text-align:center;color:#9b9b9b;">
                         {{ $date }}
                       </div>
                     </td>
@@ -160,19 +166,29 @@
                   @foreach ($games as $game)
                   <tr>
                     <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:helvetica;font-size:18px;line-height:0;text-align:center;color:#4a4a4a;">
-                        {{ $game->home }} vs {{ $game->away }}
+                      <div style="font-family:Open Sans, helvetica;font-size:18px;line-height:0;text-align:left;color:#4a4a4a;">
+                        <span style="font-weight: 700;">{{ $game->getHomeNickname() }}</span> vs {{ $game->getAwayNickname() }}
                       </div>
                     </td>
                   </tr>
 
                   <tr>
-                    <td align="center" style="font-size:0px;padding:10px 25px;padding-bottom:20px;word-break:break-word;">
-                      <div style="font-family:helvetica;font-size:34px;line-height:1;text-align:center;color:#4a4a4a;">
-                        {{ $game->attendance }}
+                    <td align="center" style="font-size:0px;padding:10px 25px;padding-bottom:10px;word-break:break-word;">
+                      <div style="font-family:Open Sans, helvetica;font-size:34px;line-height:40px;text-align:left;color:#4a4a4a;">
+                        {{ $game->attendance }}&nbsp;<span style="color: {{ $game->colorDelta }}; font-weight: 300; opacity: .6;">{{ $game->delta }}</span>
                       </div>
                     </td>
                   </tr>
+
+                  <tr>
+                    <td align="left" style="font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;">
+                      <div style="font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:14px;letter-spacing:1px;line-height:0px;text-align:left;text-transform:uppercase;color:#000000;font-weight:300;">
+                        {{ $game->dateTime }}
+                      </div>
+
+                    </td>
+                  </tr>
+
                   @endforeach
 
 
