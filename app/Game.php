@@ -79,4 +79,14 @@ class Game extends Model
       throw $e;
     }
   }
+
+  public function getHomeNickname()
+  {
+    return Team::findOrFail($this->home)->nickname;
+  }
+
+  public function getAwayNickname()
+  {
+    return Team::findOrFail($this->away)->nickname;
+  }
 }
